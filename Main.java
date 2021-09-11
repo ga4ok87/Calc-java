@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 
@@ -9,41 +10,16 @@ public class Main {
 
     public static void main(String[] args) {
 
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run()  {
 
-        StringToMath stringToMath = new StringToMath();
-        Scanner keyboard = new Scanner(System.in);
-        boolean exit = false;
-
-        System.out.println("Калькулятор:");
-
-        while (!exit) {
-            String input = keyboard.nextLine();
-            if(input != null) {
-
-                if ("q".equals(input)) {
-                    System.out.println("Exit programm");
-                    exit = true;
-                } else {
+                new Gui().ShowGui();
 
 
-                    MathOperation mathOperation = new MathOperation();
-                    MathExpression mathExpression = stringToMath.StringToMathExpression(input);
 
-                    Double res = mathOperation.Operation(mathExpression.numbers, mathExpression.mathSymbols);
-
-                    System.out.println(res);
-
-
-                }
             }
-        }
-        keyboard.close();
 
-/*
-
-
-*/
-
+        });
     }
-
 }

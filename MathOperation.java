@@ -11,8 +11,6 @@ public class MathOperation {
         ArrayList<Character> resultMath = new ArrayList<>();
         Math mathOperation = new Math();
 
-
-
         for (int i = 0; i < mathSymbols.size(); i++) {
 
             if (mathSymbols.get(i) == '*')
@@ -27,13 +25,8 @@ public class MathOperation {
             }
             if (mathSymbols.size() == i+1) result.add(numbers.get(i + 1));
         }
-        double sum = 0;
-        for (int i = 0; i< resultMath.size(); i++) {
-            if (resultMath.get(i) == '+')
-                result.set(i+1,result.get(i) + result.get(i + 1));
-            else result.set(i+1,result.get(i) - result.get(i + 1));
-        }
-        return result.get(result.size()-1);
+
+        return mathOperation.Sum(result, resultMath);
     }
 }
 
