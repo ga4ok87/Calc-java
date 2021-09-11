@@ -32,18 +32,18 @@ public class Buttons    {
     JButton btnDel = new JButton("DEL");
     JButton btnClear = new JButton("C");
     JButton btnMinus = new JButton("+/-");
-    JButton btnEmpty = new JButton("");
+    JButton btnClearAll = new JButton("CE");
 
 
 
 
 
-    public JButton getBtnEmpty(){
-        btnEmpty.setBackground(Color.LIGHT_GRAY);
-        btnEmpty.setForeground(Color.BLACK);
-        btnEmpty.setFont(sansSerif);
+    public JButton getBtnClearAll(){
+        btnClearAll.setBackground(Color.LIGHT_GRAY);
+        btnClearAll.setForeground(Color.BLACK);
+        btnClearAll.setFont(sansSerif);
 
-        return btnEmpty;
+        return btnClearAll;
     }
 
     JButton getBtnMinus(){

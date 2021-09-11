@@ -22,4 +22,9 @@ public class Math {
         }
         return numbers.get(numbers.size() - 1);
     }
+
+    public String formatDouble(double d){
+        if (d == (long) d) return String.format("%d", (long)d);
+        else return String.format("%s",d);
+    }
 }

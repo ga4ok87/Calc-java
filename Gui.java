@@ -3,7 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -11,11 +11,13 @@ public class Gui {
 
 
     public void ShowGui() {
+        Boolean isNewExpression = false;
 
        Buttons button = new  Buttons();
        Display display = new Display();
        StringToMath stringToMath = new StringToMath();
        MathOperation mathOperation = new MathOperation();
+       Math math = new Math();
 
         JFrame frame = new JFrame("КАЛЬКУЛЯТОР");
 
@@ -34,6 +36,7 @@ public class Gui {
         Action numberAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (display.isNewExpression == true) display.getResult().setText("");
 
                 if (display.getResult().getText().length() == 0) {
 
@@ -52,6 +55,8 @@ public class Gui {
                     else display.getResult().replaceSelection(e.getActionCommand());
                 }
                 else display.getResult().replaceSelection(e.getActionCommand());
+
+                display.isNewExpression = false;
             }
         };
 
@@ -94,9 +99,31 @@ public class Gui {
                 Double res = mathOperation.Operation(mathExpression.numbers, mathExpression.mathSymbols);
 
 
-                display.getResult().setText(res.toString());
+                display.getResult().setText(math.formatDouble(res));
                 display.getHistory().replaceSelection(display.getExpression().getText().toString() + "=" + display.getResult().getText().toString() + "\n");
                 display.getExpression().setText("");
+                display.isNewExpression = true;
+            }
+        };
+
+        Action plusMinusAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (display.getResult().getText().contains("-")) {
+                    display.getResult().setText(display.getResult().getText().replace("-", ""));
+
+                }
+                else display.getResult().setText("-"+display.getResult().getText().toString());
+            }
+        };
+
+
+        Action clearAll = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                display.getResult().setText("");
+                display.getExpression().setText("");
+                display.getHistory().setText(null);
             }
         };
 
@@ -107,9 +134,8 @@ public class Gui {
 
 
 
-
-
-        numbersPanel.add(button.getBtnEmpty());
+        numbersPanel.add(button.getBtnClearAll());
+        button.getBtnClearAll().addActionListener(clearAll);
 
         numbersPanel.add(button.getBtnClear());
         button.getBtnClear().addActionListener(clearResult);
@@ -173,6 +199,7 @@ public class Gui {
         button.getBtnAdd().getActionMap().put("Plus", mathAction);
 
         numbersPanel.add(button.getBtnMinus()); //+/-
+        button.getBtnMinus().addActionListener(plusMinusAction);
 
         numbersPanel.add(button.getBtn0());
         button.getBtn0().addActionListener(numberAction);
@@ -234,11 +261,21 @@ public class Gui {
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
 
+
+                int fontSize = frame.getHeight()/9;
+                display.getResult().setFont(new Font(Font.SANS_SERIF, Font.BOLD, fontSize));
+                display.getExpression().setFont(new Font(Font.SANS_SERIF, Font.ITALIC, fontSize));
+
+
                 if (frame.getWidth() >= 600){
                     historyPanel.setVisible(true);
                 }else historyPanel.setVisible(false);
             }
         });
+
+
+
+
         frame.getContentPane().setBackground(Color.WHITE);
         frame.pack();
         frame.setLocationRelativeTo(null);

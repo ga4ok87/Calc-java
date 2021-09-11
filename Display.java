@@ -10,10 +10,10 @@ public class Display {
     JTextField expression = new JTextField();
     JTextField result = new JTextField("");
     JTextArea history = new JTextArea(0,20);
-
+    Boolean isNewExpression = false;
     JTextField getExpression(){
         expression.setEditable(false);
-        expression.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+
         return expression;
     }
 
@@ -21,7 +21,7 @@ public class Display {
         result.setEditable(false);
         result.setBackground(Color.LIGHT_GRAY);
         result.setOpaque(true);
-        result.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+
         result.setHorizontalAlignment(SwingConstants.RIGHT);
         return result;
     }
@@ -30,6 +30,7 @@ public class Display {
         history.setEditable(false);
         history.setLineWrap(true);
         history.setMinimumSize(new Dimension(200,350));
+
         return history;
     }
 }
